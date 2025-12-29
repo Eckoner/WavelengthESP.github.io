@@ -167,7 +167,50 @@
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <script>
-        const clues = [["Mala compañía", "Buena compañía"], ["Frío", "Caliente"], ["Inútil", "Útil"], ["Deseo", "Necesidad"], ["Feo", "Precioso"], ["Blando", "Duro"], ["Barato", "Caro"], ["Salado", "Dulce"], ["Aburrido", "Divertido"], ["Lento", "Rápido"], ["Débil", "Fuerte"]];
+        const clues = [["Frío", "Caliente"], ["Inútil", "Útil"], ["Deseo", "Necesidad"], ["Feo", "Precioso"], ["Blando", "Duro"], ["Barato", "Caro"], ["Salado", "Dulce"], ["Aburrido", "Divertido"], ["Lento", "Rápido"], ["Débil", "Fuerte"]["Mala compañía", "Buena compañía"], ["Película terrible", "Gran película"], ["Persona olvidable", "Persona memorable"],
+            ["Culturalmente insignificante", "Culturalmente significativo"], ["Comida seca", "Comida húmeda"], ["Fácil de hacer", "Difícil de hacer"],
+            ["Se siente mal", "Se siente bien"], ["Sin pelo", "Peludo"], ["Difícil de recordar", "Fácil de recordar"],
+            ["Frío", "Caliente"], ["Inflexible", "Flexible"], ["Comida limpia", "Comida pringosa"],
+            ["Comida para comer con cubiertos", "Comida para comer con las manos"], ["Deseo", "Necesidad"], ["Cosa rara de tener", "Cosa normal de tener"],
+            ["Mal fabricado", "Bien fabricado"], ["Lugar silencioso", "Lugar ruidoso"], ["Común", "Raro"],
+            ["Mala influencia", "Modelo a seguir"], ["Animal puntiagudo", "Animal redondo"], ["Duro", "Blando"],
+            ["Feo", "Precioso"], ["Trabajo mal pagado", "Trabajo sobrepagado"], ["Habilidad infravalorada", "Habilidad sobrevalorada"],
+            ["Emoji nada sexy", "Emoji sexy"], ["Inútil", "Útil"], ["Villano", "Héroe"], ["El peor día de tu vida", "El mejor día de tu vida"],
+            ["Hobby aburrido", "Hobby emocionante"], ["Superpoder inútil", "Superpoder increíble"], ["Truco de fiesta cutre", "Truco de fiesta genial"],
+            ["Lugar terrible para una primera cita", "Lugar perfecto para una primera cita"], ["Tema de conversación incómodo", "Tema de conversación interesante"],
+            ["El peor ingrediente para una pizza", "El mejor ingrediente para una pizza"], ["Sonido molesto", "Sonido satisfactorio"],
+            ["Ropa incómoda", "Ropa cómoda"], ["El peor olor", "El mejor olor"], ["Asignatura aburrida", "Asignatura fascinante"],
+            ["Regalo terrible", "Regalo detallista"], ["Hábito poco saludable", "Hábito saludable"], ["La peor tarea del hogar", "La tarea más satisfactoria"],
+            ["Canción olvidable", "Canción pegadiza"], ["App inútil", "App imprescindible"], ["Nombre de supervillano cutre", "Nombre de superhéroe increíble"],
+            ["Peor sabor", "Mejor sabor"], ["Exposición aburrida", "Exposición alucinante"], ["Nombre de banda terrible", "Nombre de banda increíble"],
+            ["Peor frase de anuario", "Mejor frase de anuario"], ["Excusa cutre", "Excusa creíble"], ["Mascota de equipo terrible", "Mascota de equipo adorable"],
+            ["Peor invento", "Invento que cambia la vida"], ["Anuncio molesto", "Anuncio memorable"], ["Peor frase para ligar", "Frase para ligar infalible"],
+            ["Peor relleno para un sándwich", "Mejor relleno para un sándwich"], ["Salvapantallas aburrido", "Salvapantallas hipnótico"],
+            ["Truco de vida inútil", "Truco de vida revolucionario"], ["Peor premisa de serie", "Premisa de serie desternillante"],
+            ["Peor canción de karaoke", "Canción de karaoke que anima a todos"], ["Tendencia de redes molesta", "Tendencia de redes divertida"],
+            ["Nombre artístico terrible", "Nombre artístico inolvidable"], ["Peor trabalenguas", "Trabalenguas más desafiante"],
+            ["Tatuaje horrible", "Tatuaje con significado"], ["Pegatina de coche molesta", "Pegatina de coche ingeniosa"],
+            ["Frase gancho molesta", "Frase gancho icónica"], ["Nombre de equipo terrible", "Nombre de equipo intimidante"],
+            ["Peor combinación de sabores", "Combinación de sabores deliciosamente inesperada"], ["Carrera universitaria inútil", "Carrera que te cambia la vida"],
+            ["Tema de podcast terrible", "Podcast para maratonear"], ["Peor atracción de feria", "Atracción de feria emocionante"],
+            ["Truco de mascota molesto", "Truco de mascota impresionante"], ["Entrenamiento terrible", "Entrenamiento efectivo"],
+            ["Peor juego de mesa", "Juego de mesa adictivo"], ["Hábito molesto", "Rasgo adorable"], ["Broma pesada de mal gusto", "Broma inofensiva"],
+            ["Peor mascota de cereales", "Mascota de cereales querida"], ["Sonido de alarma molesto", "Alarma para despertar con suavidad"],
+            ["Lugar de vacaciones terrible", "Destino de vacaciones soñado"], ["Juguete peor", "Juguete que todos quieren"],
+            ["Personaje de TV molesto", "Personaje de TV favorito de los fans"], ["Efecto secundario de superpoder terrible", "Ventaja de superpoder increíble"],
+            ["Peor sabor de helado", "Sabor de helado innovador"], ["Abreviatura de texto molesta", "Abreviatura de texto útil"],
+            ["Idea de disfraz terrible", "Idea de disfraz creativa"], ["Peor error de cocina", "Truco de cocina revolucionario"],
+            ["Ejercicio molesto", "Ejercicio divertido"], ["Peor método de ruptura", "Método de ruptura respetuoso"],
+            ["Peor póster motivacional", "Póster que realmente motiva"], ["Función del coche molesta", "Función del coche útil"],
+            ["Peor escondite", "Escondite ingenioso"], ["Peor tendencia de la era de tus padres", "Tendencia retro genial"],
+            ["Comportamiento de turista molesto", "Comportamiento de turista respetuoso"], ["Peor hábito de compañero de piso", "Cualidad de compañero de piso ideal"],
+            ["Peor excusa para faltar al trabajo", "Razón legítima para faltar al trabajo"], ["Notificación de móvil molesta", "Notificación de móvil importante"],
+            ["Nombre de barco terrible", "Nombre de barco ingenioso"], ["Peor razón para romper", "Razón válida para romper"],
+            ["Comportamiento en el gimnasio molesto", "Etiqueta de gimnasio adecuada"], ["Aerolínea terrible", "Aerolínea de primer nivel"],
+            ["Peor graffiti de baño", "Graffiti de baño profundo"], ["Comportamiento en concierto molesto", "Comportamiento en concierto considerado"],
+            ["Peor casa de Hogwarts", "Mejor casa de Hogwarts"], ["Peor razón para tener mascota", "Gran razón para tener mascota"],
+            ["Asunto de email molesto", "Asunto de email que llama la atención"], ["Nombre de red WiFi terrible", "Nombre de red WiFi ingenioso"]
+        ];
         const emojis = ["🚀", "🦁", "🍕", "💎", "🎮", "🎸", "🥑", "👻", "🦄", "🔥", "🌈", "👽", "👾", "🤖", "🏀", "🍿", "🐼", "🌍", "☀️", "🌙", "🧿", "🧠", "🍄", "🐱", "🍺"];
         const colorPalette = [{n:"Azul",v:"#3742fa"},{n:"Verde",v:"#2ed573"},{n:"Rojo",v:"#ff4757"},{n:"Rosa",v:"#ff9ff3"},{n:"Morado",v:"#5f27cd"},{n:"Cian",v:"#48dbfb"},{n:"Amarillo",v:"#feca57"},{n:"Naranja",v:"#ffa502"},{n:"Blanco",v:"#ffffff"}];
 
