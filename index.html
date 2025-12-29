@@ -54,6 +54,7 @@
         .clues-container { display: flex; align-items: center; justify-content: center; margin: 40px 0; font-size: 2.2rem; font-weight: bold; }
         .red-line { width: 100px; height: 5px; background-color: #ff4757; margin: 0 40px; }
 
+        /* RESTAURACIÓN DE BOTONES ORIGINALES */
         .controls { display: flex; justify-content: center; gap: 20px; margin-top: 30px; }
         .controls button { padding: 20px 40px; border: none; border-radius: 15px; color: white; font-weight: bold; font-size: 1.3rem; cursor: pointer; transition: transform 0.2s; }
         .btn-master { background-color: #3742fa; min-width: 300px; }
@@ -67,21 +68,24 @@
         .score-item { padding: 15px 25px; border-radius: 15px; background: rgba(255,255,255,0.1); font-size: 1.1rem; }
         .active-team-card { border: 3px solid #ff4757; background: rgba(255, 71, 87, 0.1); }
 
-        /* Estilos Instrucciones */
-        .how-to-play-btn { background: #5f27cd; color: white; border: none; padding: 10px 20px; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .how-to-play-btn { background: #5f27cd; color: white; border: none; padding: 15px 30px; border-radius: 15px; font-weight: bold; cursor: pointer; margin-top: 20px; font-size: 1.1rem; }
         .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); }
         .modal-content { background: #1a1a4b; margin: 5% auto; padding: 30px; border: 2px solid #48dbfb; border-radius: 20px; width: 80%; max-width: 700px; max-height: 80vh; overflow-y: auto; text-align: left; line-height: 1.6; }
         .modal-content h2 { font-family: 'Orbitron'; color: #48dbfb; border-bottom: 2px solid #48dbfb; padding-bottom: 10px; }
 
-        /* Estilos Leyendas */
-        .legend-points { display: flex; justify-content: center; gap: 20px; margin: 15px 0; font-size: 0.9rem; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 10px; }
-        .legend-item { display: flex; align-items: center; gap: 5px; }
-        .dot { width: 12px; height: 12px; border-radius: 50%; }
+        /* LEYENDA PUNTOS SOLICITADA (SOLO COLOR Y PUNTOS) */
+        .legend-points { display: flex; justify-content: center; gap: 30px; margin: 20px 0; font-size: 1.2rem; font-weight: bold; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 15px; }
+        .legend-item { display: flex; align-items: center; gap: 10px; }
+        .dot { width: 18px; height: 18px; border-radius: 50%; box-shadow: 0 0 10px currentColor; }
 
-        .coop-rank-legend { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); text-align: left; font-size: 0.75rem; background: rgba(0,0,0,0.4); padding: 15px; border-radius: 15px; display: none; border: 1px solid rgba(255,255,255,0.1); }
-        .win-zone { color: #2ed573; font-weight: bold; border-top: 1px dashed #2ed573; padding-top: 5px; margin-top: 5px; }
+        .coop-rank-legend { position: absolute; right: -220px; top: 50%; transform: translateY(-50%); text-align: left; font-size: 0.85rem; background: rgba(26, 26, 46, 0.9); padding: 20px; border-radius: 15px; display: none; border: 1px solid rgba(255,255,255,0.2); width: 180px; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
+        .win-zone { color: #2ed573; font-weight: bold; border-top: 1px dashed #2ed573; padding-top: 8px; margin-top: 8px; }
 
-        .btn-restart-global { position: absolute; bottom: 20px; left: 20px; background: #eb4d4b; color: white; border: none; padding: 10px 20px; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 0.9rem; }
+        .btn-restart-global { position: absolute; bottom: 20px; left: 20px; background: #eb4d4b; color: white; border: none; padding: 12px 20px; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 0.9rem; }
+        
+        .counter-control { display: flex; align-items: center; justify-content: center; gap: 15px; margin: 10px 0; }
+        .counter-btn { background: #48dbfb; color: black; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 1.5rem; font-weight: bold; cursor: pointer; }
+        .counter-value { font-size: 1.8rem; font-weight: bold; width: 50px; text-align: center; }
     </style>
 </head>
 <body>
@@ -92,7 +96,7 @@
 
     <div id="instModal" class="modal">
         <div class="modal-content">
-            <h2>Cómo jugar a Wavelength</h2>
+            <h2 style="text-align: center;">Cómo jugar a Wavelength</h2>
             <p><strong>1.</strong> Se mostrarán dos conceptos opuestos.</p>
             <p><strong>2.</strong> El Psíquico desvela el objetivo pulsando en el botón «Ver Objetivo» y escribe una pista sobre dónde se encuentra el objetivo EN EL ESPECTRO entre los dos conceptos.<br>
             • Por ejemplo, entre CALIENTE y FRÍO.<br>
@@ -100,11 +104,11 @@
             <p><strong>3.</strong> Cuando haya escrito la palabra dará al botón: «Confirmar Pista y Ocultar» para que el equipo del Psíquico pueda poner su respuesta sin ver el espectro.</p>
             <p><strong>4.</strong> Ahora le toca al equipo del Psíquico discutir la pista y decidir a dónde girar el dial.</p>
             <p><strong>5.</strong> Haz clic y arrastra la aguja para establecer tu respuesta en el dial.</p>
-            <p><strong>6.</strong> Haz clic en «Revelar resultado» para ver lo cerca que estabas y resolver los puntos.</p>
+            <p><strong>6.</strong> Haz clic en «Revelar Resultado» para ver lo cerca que estabas y resolver los puntos.</p>
             <p><strong>7. Puntuación:</strong><br>
-            • 5 puntos: En la diana! 🎯 (VERDE)<br>
-            • 3 puntos: MUY cerca (AMARILLO)<br>
-            • 1 punto: Cerca (ROJO)<br>
+            • <span style="color:#48dbfb">5 puntos</span>: En la diana! 🎯 (VERDE)<br>
+            • <span style="color:#feca57">3 puntos</span>: MUY cerca (AMARILLO)<br>
+            • <span style="color:#ff6b6b">1 punto</span>: Cerca (ROJO)<br>
             • 0 puntos: Fallo ❌</p>
             <p><strong>8.</strong> Haz clic en «Siguiente ronda» para continuar o en «Reiniciar todo» para empezar de nuevo.</p>
             <hr style="border:0; border-top:1px solid #48dbfb; margin:20px 0;">
@@ -112,7 +116,7 @@
             <p><strong>• Cooperativo Clásico:</strong> Juega 7 rondas e intenta superar los 16 puntos para ganar.</p>
             <p><strong>• Competitivo Rondas:</strong> Los equipos se turnan. El que tenga más puntos al final de las rondas gana.</p>
             <p><strong>• Competitivo Puntos:</strong> El primer equipo en llegar a la puntuación meta gana.</p>
-            <button onclick="closeModal()" style="background:#48dbfb; color:black; border:none; padding:10px 20px; border-radius:5px; font-weight:bold; cursor:pointer; width:100%; margin-top:10px;">CERRAR</button>
+            <button onclick="closeModal()" style="background:#48dbfb; color:black; border:none; padding:15px; border-radius:10px; font-weight:bold; cursor:pointer; width:100%; margin-top:10px; font-size:1.1rem;">CERRAR</button>
         </div>
     </div>
 
@@ -169,7 +173,7 @@
 
     <div id="gameContainer" class="container">
         <div id="coopLegend" class="coop-rank-legend">
-            <strong>PUNTUACIÓN:</strong><br>
+            <strong style="color:#48dbfb">PUNTUACIÓN:</strong><br>
             0-3: ¿Enchufado?<br>
             4-6: Reinicia...<br>
             7-9: Sopla el cartucho<br>
@@ -195,12 +199,12 @@
         </div>
 
         <div class="legend-points">
-            <div class="legend-item"><div class="dot" style="background:#48dbfb;"></div> 5 pts (Dianal)</div>
-            <div class="legend-item"><div class="dot" style="background:#feca57;"></div> 3 pts (Muy cerca)</div>
-            <div class="legend-item"><div class="dot" style="background:#ff6b6b;"></div> 1 pt (Cerca)</div>
+            <div class="legend-item" style="color:#48dbfb"><div class="dot" style="background:#48dbfb;"></div> 5 pts</div>
+            <div class="legend-item" style="color:#feca57"><div class="dot" style="background:#feca57;"></div> 3 pts</div>
+            <div class="legend-item" style="color:#ff6b6b"><div class="dot" style="background:#ff6b6b;"></div> 1 pt</div>
         </div>
 
-        <div id="psychicClueDisplay" style="font-size: 2.8rem; color: #ff4757; margin-top: 25px; font-weight: 900; min-height: 60px;"></div>
+        <div id="psychicClueDisplay" style="font-size: 2.8rem; color: #ff4757; margin-top: 10px; font-weight: 900; min-height: 60px;"></div>
         <div class="clues-container">
             <div id="leftClue" style="flex:1; text-align:right"></div>
             <div class="red-line"></div>
@@ -223,12 +227,11 @@
         <div id="winnerBanner" style="font-size: 2.5rem; margin-bottom: 10px; font-weight: bold; color: #feca57;"></div>
         <div id="coopFeedback" style="font-size: 2rem; color: #48dbfb; margin-bottom: 30px; font-style: italic;"></div>
         <div id="podiumList" class="podium-list"></div>
-        <button onclick="location.reload()" style="background:#3742fa; padding: 25px 60px; border-radius:20px; color:white; font-size:1.5rem; border:none; cursor:pointer; margin-top: 40px;">NUEVA PARTIDA</button>
+        <button onclick="location.reload()" style="background:#3742fa; padding: 25px 60px; border-radius:20px; color:white; font-size:1.5rem; border:none; cursor:pointer; margin-top: 40px; font-weight: bold;">NUEVA PARTIDA</button>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <script>
-        /* Funciones Modal */
         function openModal() { document.getElementById('instModal').style.display = 'block'; }
         function closeModal() { document.getElementById('instModal').style.display = 'none'; }
 
@@ -238,16 +241,7 @@
             document.getElementById('viewText').innerText = isMobile ? 'Modo PC' : 'Modo Móvil';
         }
 
-        window.onload = () => {
-            const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 900;
-            if (isMobileDevice) {
-                document.body.classList.add('mobile-mode');
-                document.getElementById('viewIcon').innerText = '💻';
-                document.getElementById('viewText').innerText = 'Modo PC';
-            }
-        };
-
-        const allClues = [["Mala compañía", "Buena compañía"], ["Película terrible", "Gran película"], ["Persona olvidable", "Persona memorable"], ["Culturalmente insignificante", "Culturalmente significativo"], ["Comida seca", "Comida húmeda"], ["Fácil de hacer", "Difícil de hacer"], ["Se siente mal", "Se siente bien"], ["Sin pelo", "Peludo"], ["Difícil de recordar", "Fácil de recordar"], ["Frío", "Caliente"], ["Inflexible", "Flexible"], ["Comida limpia", "Comida pringosa"], ["Comida para comer con cubiertos", "Comida para comer con las manos"], ["Deseo", "Necesidad"], ["Cosa rara de tener", "Cosa normal de tener"], ["Mal fabricado", "Bien fabricado"], ["Lugar silencioso", "Lugar ruidoso"], ["Común", "Raro"], ["Mala influencia", "Modelo a seguir"], ["Animal puntiagudo", "Animal redondo"], ["Duro", "Blando"], ["Feo", "Precioso"], ["Trabajo mal pagado", "Trabajo sobrepagado"], ["Habilidad infravalorada", "Habilidad sobrevalorada"], ["Emoji nada sexy", "Emoji sexy"], ["Inútil", "Útil"], ["Villano", "Héroe"], ["El peor día de tu vida", "El mejor día de tu vida"], ["Hobby aburrido", "Hobby emocionante"], ["Superpoder inútil", "Superpoder increíble"], ["Truco de fiesta cutre", "Truco de fiesta genial"], ["Lugar terrible para una primera cita", "Lugar perfecto para una primera cita"], ["Tema de conversación incómodo", "Tema de conversación interesante"], ["El peor ingrediente para una pizza", "El mejor ingrediente para una pizza"], ["Sonido molesto", "Sonido satisfactorio"], ["Ropa incómoda", "Ropa cómoda"], ["El peor olor", "El mejor olor"], ["Asignatura aburrida", "Asignatura fascinante"], ["Regalo terrible", "Regalo detallista"], ["Hábito poco saludable", "Hábito saludable"], ["La peor tarea del hogar", "La tarea más satisfactoria"], ["Canción olvidable", "Canción pegadiza"], ["App inútil", "App imprescindible"], ["Nombre de supervillano cutre", "Nombre de superhéroe increíble"], ["Peor sabor", "Mejor sabor"], ["Exposición aburrida", "Exposición alucinante"], ["Nombre de banda terrible", "Nombre de banda increíble"], ["Peor frase de anuario", "Mejor frase de anuario"], ["Excusa cutre", "Excusa creíble"], ["Mascota de equipo terrible", "Mascota de equipo adorable"], ["Peor invento", "Invento que cambia la vida"], ["Anuncio molesto", "Anuncio memorable"], ["Peor frase para ligar", "Frase para ligar infalible"], ["Peor relleno para un sándwich", "Mejor relleno para un sándwich"], ["Salvapantallas aburrido", "Salvapantallas hipnótico"], ["Truco de vida inútil", "Truco de vida revolucionario"], ["Peor premisa de serie", "Premisa de serie desternillante"], ["Peor canción de karaoke", "Canción de karaoke que anima a todos"], ["Tendencia de redes molesta", "Tendencia de redes divertida"], ["Nombre artístico terrible", "Nombre artístico inolvidable"], ["Peor trabalenguas", "Trabalenguas más desafante"], ["Tatuaje horrible", "Tatuaje con significado"], ["Pegatina de coche molesta", "Pegatina de coche ingeniosa"], ["Frase gancho molesta", "Frase gancho icónica"], ["Nombre de equipo terrible", "Nombre de equipo intimidante"], ["Peor combinación de sabores", "Combinación de sabores deliciosamente inesperada"], ["Carrera universitaria inútil", "Carrera que te cambia la vida"], ["Tema de podcast terrible", "Podcast para maratonear"], ["Peor atracción de feria", "Atracción de feria emocionante"], ["Truco de mascota molesto", "Truco de mascota impresionante"], ["Entrenamiento terrible", "Entrenamiento efectivo"], ["Peor juego de mesa", "Juego de mesa adictivo"], ["Hábito molesto", "Rasgo adorable"], ["Broma pesada de mal gusto", "Broma inofensiva"], ["Peor mascota de cereales", "Mascota de cereales querida"], ["Sonido de alarma molesto", "Alarma para despertar con suavidad"], ["Lugar de vacaciones terrible", "Destino de vacaciones soñado"], ["Juguete peor", "Juguete que todos quieren"], ["Personaje de TV molesto", "Personaje de TV favorito de los fans"], ["Efecto secundario de superpoder terrible", "Ventaja de superpoder increíble"], ["Peor sabor de helado", "Sabor de helado innovador"], ["Abreviatura de texto molesta", "Abreviatura de texto útil"], ["Idea de disfraz terrible", "Idea de disfraz creativa"], ["Peor error de cocina", "Truco de cocina revolucionario"], ["Ejercicio molesto", "Ejercicio divertido"], ["Peor método de ruptura", "Método de ruptura respetuoso"], ["Peor póster motivacional", "Póster que realmente motiva"], ["Función del coche molesta", "Función del coche útil"], ["Peor escondite", "Escondite ingenioso"], ["Peor tendencia de la era de tus padres", "Tendencia retro genial"], ["Comportamiento de turista molesto", "Comportamiento de turista respetuoso"], ["Peor hábito de compañero de piso", "Cualidad de compañero de piso ideal"], ["Peor para faltar al trabajo", "Razón legítima para faltar al trabajo"], ["Notificación de móvil molesta", "Notificación de móvil importante"], ["Nombre de barco terrible", "Nombre de barco ingenioso"], ["Peor razón para romper", "Razón válida para romper"], ["Comportamiento en el gimnasio molesto", "Etiqueta de gimnasio adecuada"], ["Aerolínea terrible", "Aerolínea de primer nivel"], ["Peor graffiti de baño", "Graffiti de baño profundo"], ["Comportamiento en concierto molesto", "Comportamiento en concierto considerado"], ["Peor casa de Hogwarts", "Mejor casa de Hogwarts"], ["Peor razón para tener mascota", "Gran razón para tener mascota"], ["Asunto de email molesto", "Asunto de email que llama la atención"], ["Nombre de red WiFi terrible", "Nombre de red WiFi ingenioso"]];
+        const allClues = [["Mala compañía", "Buena compañía"], ["Película terrible", "Gran película"], ["Persona olvidable", "Persona memorable"], ["Culturalmente insignificante", "Culturalmente significativo"], ["Comida seca", "Comida húmeda"], ["Fácil de hacer", "Difícil de hacer"], ["Se siente mal", "Se siente bien"], ["Sin pelo", "Peludo"], ["Difícil de recordar", "Fácil de recordar"], ["Frío", "Caliente"], ["Inflexible", "Flexible"], ["Comida limpia", "Comida pringosa"], ["Comida para comer con cubiertos", "Comida para comer con las manos"], ["Deseo", "Necesidad"], ["Cosa rara de tener", "Cosa normal de tener"], ["Mal fabricado", "Bien fabricado"], ["Lugar silencioso", "Lugar ruidoso"], ["Común", "Raro"], ["Mala influencia", "Modelo a seguir"], ["Animal puntiagudo", "Animal redondo"], ["Duro", "Blando"], ["Feo", "Precioso"], ["Trabajo mal pagado", "Trabajo sobrepagado"], ["Habilidad infravalorada", "Habilidad sobrevalorada"], ["Emoji nada sexy", "Emoji sexy"], ["Inútil", "Útil"], ["Villano", "Héroe"], ["El peor día de tu vida", "El mejor día de tu vida"], ["Hobby aburrido", "Hobby emocionante"], ["Superpoder inútil", "Superpoder increíble"], ["Truco de fiesta cutre", "Truco de fiesta genial"], ["Lugar terrible para una primera cita", "Lugar perfecto para una primera cita"], ["Tema de conversación incómodo", "Tema de conversación interesante"], ["El peor ingrediente para una pizza", "El mejor ingrediente para una pizza"], ["Sonido molesto", "Sonido satisfactorio"], ["Ropa incómoda", "Ropa cómoda"], ["El peor olor", "El mejor olor"], ["Asignatura aburrida", "Asignatura fascinante"], ["Regalo terrible", "Regalo detallista"], ["Hábito poco saludable", "Hábito saludable"], ["La peor tarea del hogar", "La tarea más satisfactoria"], ["Canción olvidable", "Canción pegadiza"], ["App inútil", "App imprescindible"], ["Nombre de supervillano cutre", "Nombre de superhéroe increíble"], ["Peor sabor", "Mejor sabor"], ["Exposición aburrida", "Exposición alucinante"], ["Nombre de banda terrible", "Nombre de banda increíble"], ["Peor frase de anuario", "Mejor frase de anuario"], ["Excusa cutre", "Excusa creíble"], ["Mascota de equipo terrible", "Mascota de equipo adorable"], ["Peor invento", "Invento que cambia la vida"], ["Anuncio molesto", "Anuncio memorable"], ["Peor frase para ligar", "Frase para ligar infalible"], ["Peor relleno para un sándwich", "Mejor relleno para un sándwich"], ["Salvapantallas aburrido", "Salvapantallas hipnótico"], ["Truco de vida inútil", "Truco de vida revolucionario"], ["Peor premisa de serie", "Premisa de serie desternillante"], ["Peor canción de karaoke", "Canción de karaoke que anima a todos"], ["Tendencia de redes molesta", "Tendencia de redes divertida"], ["Nombre artístico terrible", "Nombre artístico inolvidable"], ["Peor trabalenguas", "Trabalenguas más desafante"], ["Tatuaje horrible", "Tatuaje con significado"], ["Pegatina de coche molesta", "Pegatina de coche ingeniosa"], ["Frase gancho molesta", "Frase gancho icónica"], ["Nombre de equipo terrible", "Nombre de equipo intimidante"], ["Peor combinación de sabores", "Combinación de sabores deliciosamente inesperada"], ["Carrera universitaria inútil", "Carrera que te cambia la vida"], ["Tema de podcast terrible", "Podcast para maratonear"], ["Peor atracción de feria", "Atracción de feria emocionante"], ["Truco de mascota molesto", "Truco de mascota impresionante"], ["Entrenamiento terrible", "Entrenamiento efectivo"], ["Peor juego de mesa", "Juego de mesa adictivo"], ["Hábito molesto", "Rasgo adorable"], ["Broma pesada de mal gusto", "Broma inofensiva"], ["Peor mascota de cereales", "Mascota de cereales querida"], ["Sonido de alarma molesto", "Alarma para despertar con suavidad"], ["Lugar de vacaciones terrible", "Destino de vacaciones soñado"], ["Juguete peor", "Juguete que todos quieren"], ["Personaje de TV molesto", "Personaje de TV favorito de los fans"], ["Efecto secundario de superpoder terrible", "Ventaja de superpoder increíble"], ["Peor sabor de helado", "Sabor de helado innovador"], ["Abreviatura de texto molesta", "Abreviatura de texto útil"], ["Idea de disfraz terrible", "Idea de disfraz creativa"], ["Peor error de cocina", "Truco de cocina revolucionario"], ["Ejercicio molesto", "Ejercicio divertido"], ["Peor método de ruptura", "Método de ruptura respetuoso"], ["Peor póster motivacional", "Póster que realmente motiva"], ["Función del coche molesta", "Función del coche útil"], ["Peor escondite", "Escondite ingenioso"], ["Peor tendencia de la era de tus padres", "Tendencia retro genial"], ["Comportamiento de turista molesto", "Comportamiento de turista respetuoso"], ["Peor hábito de compañero de piso", "Cualidad de compañero de piso ideal"], ["Peor excusa para faltar al trabajo", "Razón legítima para faltar al trabajo"], ["Notificación de móvil molesta", "Notificación de móvil importante"], ["Nombre de barco terrible", "Nombre de barco ingenioso"], ["Peor razón para romper", "Razón válida para romper"], ["Comportamiento en el gimnasio molesto", "Etiqueta de gimnasio adecuada"], ["Aerolínea terrible", "Aerolínea de primer nivel"], ["Peor graffiti de baño", "Graffiti de baño profundo"], ["Comportamiento en concierto molesto", "Comportamiento en concierto considerado"], ["Peor casa de Hogwarts", "Mejor casa de Hogwarts"], ["Peor razón para tener mascota", "Gran razón para tener mascota"], ["Asunto de email molesto", "Asunto de email que llama la atención"], ["Nombre de red WiFi terrible", "Nombre de red WiFi ingenioso"]];
         
         let availableClues = [];
         const emojis = ["🚀", "🦁", "🍕", "💎", "🎮", "🎸", "🥑", "👻", "🦄", "🔥", "🌈", "👽", "👾", "🤖", "🏀", "🍿", "🐼", "🌍", "☀️", "🌙", "🧿", "🧠", "🍄", "🐱", "🍺"];
@@ -285,7 +279,6 @@
             const mode = document.getElementById('gameMode').value;
             if (numTeams === 1 && !mode.startsWith('coop')) { alert("Selecciona un modo Cooperativo para 1 equipo."); return; }
             if (numTeams > 1 && mode.startsWith('coop')) { alert("El modo Cooperativo es para 1 solo equipo."); return; }
-
             availableClues = [...allClues].sort(() => Math.random() - 0.5);
             teams = [];
             for(let i=0; i<numTeams; i++) {
@@ -293,10 +286,7 @@
             }
             document.getElementById('teamSetup').style.display = 'none';
             document.getElementById('gameContainer').style.display = 'block';
-            
-            // Mostrar leyenda coop si aplica
             document.getElementById('coopLegend').style.display = (mode === 'coop_classic') ? 'block' : 'none';
-            
             newRound();
         }
 
@@ -305,7 +295,6 @@
             targetAngle = Math.random() * 180 - 90;
             const area = document.getElementById('targetArea');
             area.style.background = `conic-gradient(from -90deg at 50% 100%, rgba(255,255,255,0.05) 0deg ${targetAngle + 67.5}deg, #ff6b6b ${targetAngle + 67.5}deg ${targetAngle + 76.5}deg, #feca57 ${targetAngle + 76.5}deg ${targetAngle + 85.5}deg, #48dbfb ${targetAngle + 85.5}deg ${targetAngle + 94.5}deg, #feca57 ${targetAngle + 94.5}deg ${targetAngle + 103.5}deg, #ff6b6b ${targetAngle + 103.5}deg ${targetAngle + 112.5}deg, rgba(255,255,255,0.05) ${targetAngle + 112.5}deg 180deg)`;
-            
             const pair = availableClues.pop();
             document.getElementById('leftClue').innerText = pair[0].toUpperCase();
             document.getElementById('rightClue').innerText = pair[1].toUpperCase();
@@ -320,7 +309,6 @@
             document.getElementById('skipButton').style.display = 'inline-block';
             document.getElementById('masterButton').style.display = 'inline-block';
             document.getElementById('masterButton').innerText = "Ver Objetivo (Psíquico)";
-            
             const mode = document.getElementById('gameMode').value;
             let display = `RONDA ${currentRound}`;
             if(mode === 'rounds') display += ` / ${numRounds}`;
@@ -371,7 +359,6 @@
         function nextRound() {
             const mode = document.getElementById('gameMode').value;
             const isEndOfCycle = currentTeamIndex === (teams.length - 1);
-            
             if (isEndOfCycle) {
                 const maxScore = Math.max(...teams.map(t => t.score));
                 if (mode === 'coop_classic' && currentRound >= 7) { showPodium(); return; }
@@ -387,7 +374,6 @@
             document.getElementById('podiumScreen').style.display = 'block';
             const sortedTeams = [...teams].sort((a, b) => b.score - a.score);
             const mode = document.getElementById('gameMode').value;
-            
             if (mode === 'coop_classic') {
                 const total = teams[0].score;
                 let feedback = "";
@@ -427,13 +413,17 @@
             const angle = Math.atan2(clientX - (rect.left + rect.width / 2), rect.bottom - clientY) * 180 / Math.PI;
             document.getElementById('needle').style.transform = `rotate(${Math.max(-90, Math.min(90, angle))}deg)`;
         };
-
         cont.addEventListener('mousedown', handleStart);
         cont.addEventListener('touchstart', handleStart);
         document.addEventListener('mouseup', handleEnd);
         document.addEventListener('touchend', handleEnd);
         document.addEventListener('mousemove', handleMove);
         document.addEventListener('touchmove', handleMove, {passive: false});
+
+        window.onload = () => {
+            const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 900;
+            if (isMobileDevice) { document.body.classList.add('mobile-mode'); }
+        };
     </script>
 </body>
 </html>
