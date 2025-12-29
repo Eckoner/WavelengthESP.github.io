@@ -60,10 +60,6 @@
         .btn-skip { background-color: #57606f; }
         .btn-next { background-color: #2ed573; }
 
-        .counter-control { display: flex; align-items: center; justify-content: center; gap: 15px; margin: 10px 0; }
-        .counter-btn { background: #48dbfb; color: black; border: none; width: 40px; height: 40px; border-radius: 50%; font-size: 1.5rem; font-weight: bold; cursor: pointer; }
-        .counter-value { font-size: 1.8rem; font-weight: bold; width: 50px; text-align: center; }
-
         .setup-grid { display: flex; flex-direction: column; gap: 12px; max-width: 750px; margin: 20px auto; max-height: 350px; overflow-y: auto; padding: 10px; }
         .team-row { display: grid; grid-template-columns: 1fr 120px 150px; gap: 15px; background: rgba(255,255,255,0.08); padding: 12px; border-radius: 15px; align-items: center; }
         
@@ -71,11 +67,19 @@
         .score-item { padding: 15px 25px; border-radius: 15px; background: rgba(255,255,255,0.1); font-size: 1.1rem; }
         .active-team-card { border: 3px solid #ff4757; background: rgba(255, 71, 87, 0.1); }
 
-        .podium-list { list-style: none; padding: 0; max-width: 500px; margin: 0 auto; }
-        .podium-row { display: flex; align-items: center; padding: 15px; margin-bottom: 10px; background: rgba(255,255,255,0.1); border-radius: 15px; font-size: 1.5rem; }
-        .pos-1 { background: linear-gradient(90deg, #feca57, #ff9f43); color: black; font-weight: bold; transform: scale(1.1); }
-        .pos-rank { width: 50px; font-weight: bold; }
-        .pos-name { flex-grow: 1; text-align: left; padding-left: 20px; }
+        /* Estilos Instrucciones */
+        .how-to-play-btn { background: #5f27cd; color: white; border: none; padding: 10px 20px; border-radius: 10px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); }
+        .modal-content { background: #1a1a4b; margin: 5% auto; padding: 30px; border: 2px solid #48dbfb; border-radius: 20px; width: 80%; max-width: 700px; max-height: 80vh; overflow-y: auto; text-align: left; line-height: 1.6; }
+        .modal-content h2 { font-family: 'Orbitron'; color: #48dbfb; border-bottom: 2px solid #48dbfb; padding-bottom: 10px; }
+
+        /* Estilos Leyendas */
+        .legend-points { display: flex; justify-content: center; gap: 20px; margin: 15px 0; font-size: 0.9rem; background: rgba(0,0,0,0.3); padding: 10px; border-radius: 10px; }
+        .legend-item { display: flex; align-items: center; gap: 5px; }
+        .dot { width: 12px; height: 12px; border-radius: 50%; }
+
+        .coop-rank-legend { position: absolute; right: 20px; top: 50%; transform: translateY(-50%); text-align: left; font-size: 0.75rem; background: rgba(0,0,0,0.4); padding: 15px; border-radius: 15px; display: none; border: 1px solid rgba(255,255,255,0.1); }
+        .win-zone { color: #2ed573; font-weight: bold; border-top: 1px dashed #2ed573; padding-top: 5px; margin-top: 5px; }
 
         .btn-restart-global { position: absolute; bottom: 20px; left: 20px; background: #eb4d4b; color: white; border: none; padding: 10px 20px; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 0.9rem; }
     </style>
@@ -86,12 +90,38 @@
         <span id="viewIcon">📱</span> <span id="viewText">Modo Móvil</span>
     </div>
 
+    <div id="instModal" class="modal">
+        <div class="modal-content">
+            <h2>Cómo jugar a Wavelength</h2>
+            <p><strong>1.</strong> Se mostrarán dos conceptos opuestos.</p>
+            <p><strong>2.</strong> El Psíquico desvela el objetivo pulsando en el botón «Ver Objetivo» y escribe una pista sobre dónde se encuentra el objetivo EN EL ESPECTRO entre los dos conceptos.<br>
+            • Por ejemplo, entre CALIENTE y FRÍO.<br>
+            • El psíquico puede decir algo como ¡CAFÉ!</p>
+            <p><strong>3.</strong> Cuando haya escrito la palabra dará al botón: «Confirmar Pista y Ocultar» para que el equipo del Psíquico pueda poner su respuesta sin ver el espectro.</p>
+            <p><strong>4.</strong> Ahora le toca al equipo del Psíquico discutir la pista y decidir a dónde girar el dial.</p>
+            <p><strong>5.</strong> Haz clic y arrastra la aguja para establecer tu respuesta en el dial.</p>
+            <p><strong>6.</strong> Haz clic en «Revelar resultado» para ver lo cerca que estabas y resolver los puntos.</p>
+            <p><strong>7. Puntuación:</strong><br>
+            • 5 puntos: En la diana! 🎯 (VERDE)<br>
+            • 3 puntos: MUY cerca (AMARILLO)<br>
+            • 1 punto: Cerca (ROJO)<br>
+            • 0 puntos: Fallo ❌</p>
+            <p><strong>8.</strong> Haz clic en «Siguiente ronda» para continuar o en «Reiniciar todo» para empezar de nuevo.</p>
+            <hr style="border:0; border-top:1px solid #48dbfb; margin:20px 0;">
+            <h3>Modos Particulares:</h3>
+            <p><strong>• Cooperativo Clásico:</strong> Juega 7 rondas e intenta superar los 16 puntos para ganar.</p>
+            <p><strong>• Competitivo Rondas:</strong> Los equipos se turnan. El que tenga más puntos al final de las rondas gana.</p>
+            <p><strong>• Competitivo Puntos:</strong> El primer equipo en llegar a la puntuación meta gana.</p>
+            <button onclick="closeModal()" style="background:#48dbfb; color:black; border:none; padding:10px 20px; border-radius:5px; font-weight:bold; cursor:pointer; width:100%; margin-top:10px;">CERRAR</button>
+        </div>
+    </div>
+
     <div id="teamSetup" class="container">
         <div class="header-logo">
             <img src="logo.png" alt="WAVELENGTH LOGO" onerror="this.style.display='none'; this.parentNode.innerHTML='<h1 style=\'font-family:Orbitron; font-size:4rem; letter-spacing:10px;\'>WAVELENGTH</h1>'">
         </div>
         
-        <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 30px; flex-wrap: wrap;">
+        <div style="display: flex; justify-content: center; gap: 30px; margin-bottom: 20px; flex-wrap: wrap;">
             <div>
                 <label>EQUIPOS (1-12)</label>
                 <div class="counter-control">
@@ -132,13 +162,30 @@
             </div>
         </div>
         <div id="teamInputs" class="setup-grid"></div>
-        <button onclick="startGame()" style="background: #2ed573; color: white; padding: 25px 60px; border: none; border-radius: 20px; font-weight: bold; font-size: 1.6rem; cursor: pointer; width: 100%; margin-top: 20px;">EMPEZAR PARTIDA</button>
+        <button onclick="startGame()" style="background: #2ed573; color: white; padding: 25px 60px; border: none; border-radius: 20px; font-weight: bold; font-size: 1.6rem; cursor: pointer; width: 100%; margin-top: 10px;">EMPEZAR PARTIDA</button>
+        <br>
+        <button class="how-to-play-btn" onclick="openModal()">❔ Cómo jugar</button>
     </div>
 
     <div id="gameContainer" class="container">
+        <div id="coopLegend" class="coop-rank-legend">
+            <strong>PUNTUACIÓN:</strong><br>
+            0-3: ¿Enchufado?<br>
+            4-6: Reinicia...<br>
+            7-9: Sopla el cartucho<br>
+            10-12: No está mal<br>
+            13-15: TAN CERCA<br>
+            <div class="win-zone">
+                16-18: ¡GANASTE! 🎉<br>
+                19-21: Misma onda<br>
+                22-24: Cerebro Galaxia<br>
+                25+: 🤯🤯🤯
+            </div>
+        </div>
+
         <button class="btn-restart-global" onclick="location.reload()">REINICIAR TODO</button>
         <div id="roundDisplay" style="font-size: 1.4rem; color: #48dbfb; margin-bottom: 15px; font-weight: bold;"></div>
-        <div id="tiebreakerWarning" style="color: #ff4757; font-weight: bold; margin-bottom: 5px; display:none;">⚠️ ¡RONDA DE DESEMPATE! ⚠️</div>
+        
         <div class="board">
             <div id="boardCover" class="board-cover">SÓLO EL PSÍQUICO MIRA</div>
             <div id="targetArea" class="target-area"></div>
@@ -146,6 +193,13 @@
                 <div id="needle" class="needle"></div>
             </div>
         </div>
+
+        <div class="legend-points">
+            <div class="legend-item"><div class="dot" style="background:#48dbfb;"></div> 5 pts (Dianal)</div>
+            <div class="legend-item"><div class="dot" style="background:#feca57;"></div> 3 pts (Muy cerca)</div>
+            <div class="legend-item"><div class="dot" style="background:#ff6b6b;"></div> 1 pt (Cerca)</div>
+        </div>
+
         <div id="psychicClueDisplay" style="font-size: 2.8rem; color: #ff4757; margin-top: 25px; font-weight: 900; min-height: 60px;"></div>
         <div class="clues-container">
             <div id="leftClue" style="flex:1; text-align:right"></div>
@@ -174,6 +228,10 @@
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <script>
+        /* Funciones Modal */
+        function openModal() { document.getElementById('instModal').style.display = 'block'; }
+        function closeModal() { document.getElementById('instModal').style.display = 'none'; }
+
         function toggleViewMode() {
             const isMobile = document.body.classList.toggle('mobile-mode');
             document.getElementById('viewIcon').innerText = isMobile ? '💻' : '📱';
@@ -202,13 +260,8 @@
         let currentTeamIndex = 0;
         let gameState = 'START';
         let currentRound = 1;
-        let tiebreakerTeams = [];
 
-        function updateTeamCount(val) { 
-            numTeams = Math.max(1, Math.min(12, numTeams + val)); 
-            document.getElementById('teamVal').innerText = numTeams; 
-            setupTeams(); 
-        }
+        function updateTeamCount(val) { numTeams = Math.max(1, Math.min(12, numTeams + val)); document.getElementById('teamVal').innerText = numTeams; setupTeams(); }
         function updateRoundCount(val) { numRounds = Math.max(5, Math.min(15, numRounds + val)); document.getElementById('roundVal').innerText = numRounds; }
         function updatePointCount(val) { targetScore = Math.max(10, Math.min(50, targetScore + val)); document.getElementById('pointVal').innerText = targetScore; }
         
@@ -230,14 +283,8 @@
 
         function startGame() {
             const mode = document.getElementById('gameMode').value;
-            if (numTeams === 1 && !mode.startsWith('coop')) {
-                alert("Para jugar con 1 equipo selecciona un modo Cooperativo.");
-                return;
-            }
-            if (numTeams > 1 && mode.startsWith('coop')) {
-                alert("Para jugar Modo Cooperativo solo debe haber 1 equipo.");
-                return;
-            }
+            if (numTeams === 1 && !mode.startsWith('coop')) { alert("Selecciona un modo Cooperativo para 1 equipo."); return; }
+            if (numTeams > 1 && mode.startsWith('coop')) { alert("El modo Cooperativo es para 1 solo equipo."); return; }
 
             availableClues = [...allClues].sort(() => Math.random() - 0.5);
             teams = [];
@@ -246,6 +293,10 @@
             }
             document.getElementById('teamSetup').style.display = 'none';
             document.getElementById('gameContainer').style.display = 'block';
+            
+            // Mostrar leyenda coop si aplica
+            document.getElementById('coopLegend').style.display = (mode === 'coop_classic') ? 'block' : 'none';
+            
             newRound();
         }
 
@@ -254,7 +305,7 @@
             targetAngle = Math.random() * 180 - 90;
             const area = document.getElementById('targetArea');
             area.style.background = `conic-gradient(from -90deg at 50% 100%, rgba(255,255,255,0.05) 0deg ${targetAngle + 67.5}deg, #ff6b6b ${targetAngle + 67.5}deg ${targetAngle + 76.5}deg, #feca57 ${targetAngle + 76.5}deg ${targetAngle + 85.5}deg, #48dbfb ${targetAngle + 85.5}deg ${targetAngle + 94.5}deg, #feca57 ${targetAngle + 94.5}deg ${targetAngle + 103.5}deg, #ff6b6b ${targetAngle + 103.5}deg ${targetAngle + 112.5}deg, rgba(255,255,255,0.05) ${targetAngle + 112.5}deg 180deg)`;
-            if(availableClues.length === 0) availableClues = [...allClues].sort(() => Math.random() - 0.5);
+            
             const pair = availableClues.pop();
             document.getElementById('leftClue').innerText = pair[0].toUpperCase();
             document.getElementById('rightClue').innerText = pair[1].toUpperCase();
@@ -274,11 +325,7 @@
             let display = `RONDA ${currentRound}`;
             if(mode === 'rounds') display += ` / ${numRounds}`;
             if(mode === 'coop_classic') display += ` / 7`;
-            if(mode === 'points') display += ` (META: ${targetScore} PTS)`;
-            if(mode.includes('infinite')) display += ` (MODO INFINITO)`;
-            
             document.getElementById('roundDisplay').innerText = display;
-            document.getElementById('tiebreakerWarning').style.display = tiebreakerTeams.length > 0 ? 'block' : 'none';
             updateScoreboard();
         }
 
@@ -309,8 +356,7 @@
                 const currentAngle = parseFloat(document.getElementById('needle').style.transform.replace('rotate(','')) || 0;
                 const diff = Math.abs(currentAngle - targetAngle);
                 let pts = diff <= 4.5 ? 5 : diff <= 13.5 ? 3 : diff <= 22.5 ? 1 : 0;
-                let activeTeam = tiebreakerTeams.length > 0 ? tiebreakerTeams[currentTeamIndex] : teams[currentTeamIndex];
-                activeTeam.score += pts;
+                teams[currentTeamIndex].score += pts;
                 const msg = document.getElementById('scoreMsg');
                 msg.innerText = pts > 0 ? `¡+${pts} PUNTOS!` : "¡FALLASTE!";
                 msg.style.color = pts === 5 ? "#48dbfb" : (pts > 0 ? "#2ed573" : "#ff4757");
@@ -324,37 +370,16 @@
 
         function nextRound() {
             const mode = document.getElementById('gameMode').value;
-            const currentList = tiebreakerTeams.length > 0 ? tiebreakerTeams : teams;
-            const isEndOfTurnCycle = currentTeamIndex === (currentList.length - 1);
+            const isEndOfCycle = currentTeamIndex === (teams.length - 1);
             
-            if (isEndOfTurnCycle) {
+            if (isEndOfCycle) {
                 const maxScore = Math.max(...teams.map(t => t.score));
-                
-                if (mode === 'coop_classic' && currentRound >= 7) {
-                    showPodium();
-                    return;
-                }
-                if (mode === 'rounds' && currentRound >= numRounds) {
-                    checkWinnerOrTie(maxScore);
-                    return;
-                }
-                if (mode === 'points' && maxScore >= targetScore) {
-                    checkWinnerOrTie(maxScore);
-                    return;
-                }
-                if (tiebreakerTeams.length > 0) {
-                    checkWinnerOrTie(maxScore);
-                    return;
-                }
+                if (mode === 'coop_classic' && currentRound >= 7) { showPodium(); return; }
+                if (mode === 'rounds' && currentRound >= numRounds) { showPodium(); return; }
+                if (mode === 'points' && maxScore >= targetScore) { showPodium(); return; }
                 currentTeamIndex = 0; currentRound++;
             } else { currentTeamIndex++; }
             newRound();
-        }
-
-        function checkWinnerOrTie(maxScore) {
-            const winners = teams.filter(t => t.score === maxScore);
-            if (winners.length > 1) { tiebreakerTeams = winners; currentTeamIndex = 0; currentRound++; newRound(); }
-            else { showPodium(); }
         }
 
         function showPodium() {
@@ -375,26 +400,19 @@
                 else if(total <= 21) feedback = "Estás en la misma… longitud de onda";
                 else if(total <= 24) feedback = "Cerebro GALAXIA 🧠✨";
                 else feedback = "🤯🤯🤯";
-                
                 document.getElementById('winnerBanner').innerText = `PUNTUACIÓN FINAL: ${total}`;
                 document.getElementById('coopFeedback').innerText = feedback;
             } else {
-                const winner = sortedTeams[0];
-                document.getElementById('winnerBanner').innerText = `GANADOR: ${winner.emoji} ${winner.name.toUpperCase()}`;
-                document.getElementById('coopFeedback').innerText = "";
+                document.getElementById('winnerBanner').innerText = `GANADOR: ${sortedTeams[0].emoji} ${sortedTeams[0].name.toUpperCase()}`;
             }
-
             document.getElementById('podiumList').innerHTML = sortedTeams.map((t, i) => `<div class="podium-row ${i === 0 ? 'pos-1' : ''}"><div class="pos-rank">${i + 1}º</div><div class="pos-name">${t.emoji} ${t.name}</div><div class="pos-score">${t.score} PTS</div></div>`).join('');
             confetti({particleCount: 300, spread: 100});
         }
 
         function updateScoreboard() {
-            const isTie = tiebreakerTeams.length > 0;
-            document.getElementById('scoreboard').innerHTML = teams.map((t, i) => {
-                const isMyTurn = isTie ? (tiebreakerTeams[currentTeamIndex].id === t.id) : (currentTeamIndex === i);
-                const isPlayingTie = isTie && tiebreakerTeams.some(tt => tt.id === t.id);
-                return `<div class="score-item ${isMyTurn ? 'active-team-card' : ''}" style="border-bottom: 5px solid ${t.color}; opacity: ${isTie && !isPlayingTie ? '0.4' : '1'}">${t.emoji} ${t.name}: ${t.score}</div>`;
-            }).join('');
+            document.getElementById('scoreboard').innerHTML = teams.map((t, i) => 
+                `<div class="score-item ${currentTeamIndex === i ? 'active-team-card' : ''}" style="border-bottom: 5px solid ${t.color}">${t.emoji} ${t.name}: ${t.score}</div>`
+            ).join('');
         }
 
         let isDragging = false;
