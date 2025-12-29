@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Wavelength - Pro</title>
+    <title>Wavelength Pro</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet" />
     <style>
@@ -12,14 +12,14 @@
             --bg-color: #f0f0f0;
             --container-bg: #ffffff;
             --text-color: #2f3542;
-            --accent-color: #3742fa;
+            --accent-color: #1a1a4b;
         }
 
         body.dark-mode {
-            --bg-color: #1e1e2e;
-            --container-bg: #2d2d44;
+            --bg-color: #0a0a1a;
+            --container-bg: #1a1a2e;
             --text-color: #f8f8f2;
-            --accent-color: #70a1ff;
+            --accent-color: #48dbfb;
         }
 
         body {
@@ -27,11 +27,35 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
             background-color: var(--bg-color);
             color: var(--text-color);
             transition: all 0.3s ease;
+        }
+
+        /* LOGO ESTILO IMAGEN (Azul noche con estrellas) */
+        .header-logo {
+            background-color: #050520;
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
+                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
+                radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px);
+            background-size: 550px 550px, 350px 350px, 250px 250px;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .header-logo h1 {
+            color: white;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 45px;
+            margin: 0;
+            letter-spacing: 8px;
+            text-transform: uppercase;
         }
 
         .theme-switch {
@@ -39,7 +63,7 @@
             top: 20px;
             right: 20px;
             cursor: pointer;
-            padding: 10px;
+            padding: 10px 15px;
             background: var(--container-bg);
             border-radius: 20px;
             box-shadow: 0 4px 10px rgba(0,0,0,0.1);
@@ -50,42 +74,35 @@
             display: none;
             text-align: center;
             background-color: var(--container-bg);
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            width: 600px;
-        }
-
-        .title {
-            font-family: "Orbitron", sans-serif;
-            font-size: 42px;
-            color: var(--accent-color);
-            margin-bottom: 20px;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            width: 650px;
         }
 
         .board {
             width: 400px;
             height: 200px;
-            background-color: #444;
+            background-color: #222;
             border-radius: 200px 200px 0 0;
             position: relative;
             margin: 0 auto;
             overflow: hidden;
+            border-bottom: 5px solid #111;
         }
 
-        /* La tapa que oculta todo */
         .board-cover {
             position: absolute;
             width: 100%;
             height: 100%;
-            background-color: #2f3542;
+            background-color: #1a1a2e;
             z-index: 20;
             display: flex;
             justify-content: center;
             align-items: center;
             color: white;
-            font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1rem;
+            letter-spacing: 2px;
         }
 
         .target-area {
@@ -104,7 +121,7 @@
             transform: translateX(-50%);
             cursor: pointer;
             z-index: 15;
-            display: none; /* Empieza oculta */
+            display: none;
         }
 
         .needle {
@@ -112,7 +129,7 @@
             height: 100%;
             background-color: #ff4757;
             transform-origin: bottom center;
-            border-radius: 4px;
+            box-shadow: 0 0 8px rgba(255, 71, 87, 0.6);
         }
 
         .clues-container {
@@ -120,55 +137,79 @@
             align-items: center;
             justify-content: center;
             margin: 30px 0;
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             font-weight: bold;
+            min-height: 80px;
         }
 
         .bidirectional-arrow {
-            width: 80px;
+            width: 60px;
             height: 2px;
-            background-color: var(--accent-color);
-            margin: 0 15px;
+            background-color: #ff4757;
+            margin: 0 20px;
             position: relative;
         }
 
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
         .controls button {
-            padding: 12px 20px;
+            padding: 12px 25px;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             color: white;
             font-weight: bold;
             cursor: pointer;
             transition: transform 0.1s;
         }
 
-        .controls button:active { transform: scale(0.95); }
-
-        /* Colores de botones dinámicos */
-        .btn-psychic { background-color: #3742fa; } /* Azul */
-        .btn-hide { background-color: #ff9f43; }    /* Naranja */
-        .btn-reveal { background-color: #2ed573; }  /* Verde */
+        .btn-master { font-size: 1.1rem; min-width: 200px; }
+        .btn-skip { background-color: #747d8c; }
+        .btn-next { background-color: #3742fa; }
 
         .team-setup {
             background-color: var(--container-bg);
             padding: 2rem;
-            border-radius: 15px;
-            width: 450px;
+            border-radius: 20px;
+            width: 550px;
             text-align: center;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
         }
 
         .team-row {
-            display: flex;
+            display: grid;
+            grid-template-columns: 1fr 100px 80px;
             gap: 10px;
-            justify-content: center;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
+            align-items: center;
         }
 
-        .team-row input { padding: 8px; border-radius: 5px; border: 1px solid #ccc; flex: 1; }
+        .team-row input, .team-row select {
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
 
-        .score-item { margin: 5px 0; padding: 10px; border-radius: 8px; background: rgba(0,0,0,0.05); }
-        .active-team { border: 2px solid var(--accent-color); transform: scale(1.05); }
+        .score-item {
+            padding: 10px 20px;
+            border-radius: 12px;
+            background: rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+        }
+
+        .active-team-card {
+            border: 3px solid #ff4757;
+            transform: scale(1.1);
+            background: rgba(255, 71, 87, 0.1);
+        }
     </style>
 </head>
 
@@ -176,17 +217,25 @@
     <div class="theme-switch" onclick="toggleTheme()">🌓 Modo</div>
 
     <div id="teamSetup" class="team-setup">
-        <h1 class="title">Wavelength</h1>
+        <div class="header-logo">
+            <h1>Wavelength</h1>
+        </div>
+        
         <p>Número de Equipos:</p>
-        <input type="number" id="teamCount" min="1" max="5" value="2" style="width: 50px; margin-bottom: 20px;">
+        <input type="number" id="teamCount" min="1" max="10" value="2" style="width: 60px; margin-bottom: 20px; font-size: 1.2rem;">
+        
         <div id="teamInputs"></div>
-        <button onclick="startGame()" style="background: #2ed573; color: white; padding: 15px 30px; border: none; border-radius: 8px; cursor: pointer; font-weight: bold;">EMPEZAR JUEGO</button>
+        
+        <button onclick="startGame()" style="background: #2ed573; color: white; padding: 15px 40px; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; margin-top: 20px; width: 100%;">EMPEZAR PARTIDA</button>
     </div>
 
     <div id="gameContainer" class="game-container">
-        <h1 class="title">Wavelength</h1>
+        <div class="header-logo" style="padding: 10px; border-radius: 10px;">
+            <h1 style="font-size: 25px;">Wavelength</h1>
+        </div>
+
         <div class="board">
-            <div id="boardCover" class="board-cover">SÓLO EL PSÍQUICO MIRA</div>
+            <div id="boardCover" class="board-cover">EL PSÍQUICO ESTÁ MIRANDO...</div>
             <div id="targetArea" class="target-area"></div>
             <div id="needleContainer" class="needle-container">
                 <div id="needle" class="needle"></div>
@@ -200,13 +249,14 @@
         </div>
 
         <div class="controls">
-            <button id="masterButton" onclick="handleMasterFlow()">Ver Objetivo (Psíquico)</button>
-            <button id="nextRoundButton" onclick="nextRound()" style="background: #5352ed; display:none;">Siguiente Ronda</button>
+            <button id="masterButton" class="btn-master" onclick="handleMasterFlow()" style="background-color: #3742fa;">Ver Objetivo (Psíquico)</button>
+            <button id="skipButton" class="btn-skip" onclick="skipRound()">Saltar Ronda ⏭️</button>
+            <button id="nextRoundButton" class="btn-next" onclick="nextRound()" style="display:none;">Siguiente Ronda</button>
             <button onclick="location.reload()" style="background: #ff4757;">Reiniciar</button>
         </div>
 
         <div id="scoreMsg" style="margin: 20px 0; font-size: 1.5rem; font-weight: bold;"></div>
-        <div id="scoreboard" style="display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;"></div>
+        <div id="scoreboard" style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 20px;"></div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
@@ -215,31 +265,33 @@
             ["Mala compañía", "Buena compañía"], ["Película terrible", "Gran película"], ["Frío", "Caliente"], ["Inflexible", "Flexible"],
             ["Deseo", "Necesidad"], ["Cosa rara", "Cosa normal"], ["Duro", "Blando"], ["Feo", "Precioso"], ["Inútil", "Útil"],
             ["Hobby aburrido", "Hobby emocionante"], ["Peor olor", "Mejor olor"], ["Hábito molesto", "Rasgo adorable"],
-            ["Tradicional", "Moderno"], ["Barato", "Caro"], ["Aburrido", "Divertido"], ["Salado", "Dulce"]
+            ["Tradicional", "Moderno"], ["Barato", "Caro"], ["Salado", "Dulce"], ["Baja calidad", "Alta calidad"]
         ];
+
+        const emojis = ["🚀", "🦁", "🍕", "💎", "🎮", "🎸", "🥑", "👻", "🦄", "🔥"];
+        const colors = ["#3742fa", "#2ed573", "#ff4757", "#ffa502", "#e056fd", "#1dd1a1", "#5f27cd", "#ff9ff3", "#48dbfb", "#00d2d3"];
 
         let teams = [];
         let currentTeamIndex = 0;
         let targetAngle = 0;
-        let gameState = 'START'; // START -> PSYCHIC_VIEW -> TEAM_GUESS -> REVEALED
+        let gameState = 'START';
 
         function setupTeams() {
             const count = document.getElementById('teamCount').value;
             const container = document.getElementById('teamInputs');
             container.innerHTML = '';
-            const colors = ["#3742fa", "#2ed573", "#ff4757", "#ffa502", "#e056fd"];
             for (let i = 0; i < count; i++) {
+                let emojiOptions = emojis.map(e => `<option>${e}</option>`).join('');
+                let colorOptions = colors.map((c, idx) => `<option value="${c}">Color ${idx+1}</option>`).join('');
+                
                 container.innerHTML += `
                     <div class="team-row">
                         <input type="text" placeholder="Equipo ${i+1}" id="name${i}">
-                        <select id="color${i}">
-                            <option value="${colors[i % 5]}" selected>Color ${i+1}</option>
-                            <option value="#3742fa">Azul</option>
-                            <option value="#2ed573">Verde</option>
-                            <option value="#ff4757">Rojo</option>
-                            <option value="#ffa502">Naranja</option>
-                        </select>
+                        <select id="emoji${i}">${emojiOptions}</select>
+                        <select id="color${i}">${colorOptions}</select>
                     </div>`;
+                // Asignar color por defecto diferente a cada uno
+                setTimeout(() => document.getElementById(`color${i}`).selectedIndex = i % 10, 0);
             }
         }
         document.getElementById('teamCount').oninput = setupTeams;
@@ -252,6 +304,7 @@
             for(let i=0; i<count; i++) {
                 teams.push({
                     name: document.getElementById(`name${i}`).value || `Equipo ${i+1}`,
+                    emoji: document.getElementById(`emoji${i}`).value,
                     color: document.getElementById(`color${i}`).value,
                     score: 0
                 });
@@ -265,7 +318,6 @@
             gameState = 'START';
             targetAngle = Math.random() * 180 - 90;
             
-            // Dibujar el objetivo
             const area = document.getElementById('targetArea');
             area.style.background = `conic-gradient(from -90deg at 50% 100%, #a4b0be 0deg ${targetAngle + 67.5}deg, #ff6b6b ${targetAngle + 67.5}deg ${targetAngle + 76.5}deg, #feca57 ${targetAngle + 76.5}deg ${targetAngle + 85.5}deg, #48dbfb ${targetAngle + 85.5}deg ${targetAngle + 94.5}deg, #feca57 ${targetAngle + 94.5}deg ${targetAngle + 103.5}deg, #ff6b6b ${targetAngle + 103.5}deg ${targetAngle + 112.5}deg, #a4b0be ${targetAngle + 112.5}deg 180deg)`;
             
@@ -273,19 +325,23 @@
             document.getElementById('leftClue').innerText = pair[0];
             document.getElementById('rightClue').innerText = pair[1];
             
-            // Estado Inicial Visual
             document.getElementById('boardCover').style.display = 'flex';
             document.getElementById('targetArea').style.display = 'block';
             document.getElementById('needleContainer').style.display = 'none';
             document.getElementById('scoreMsg').innerText = "";
             document.getElementById('nextRoundButton').style.display = 'none';
+            document.getElementById('skipButton').style.display = 'inline-block';
             
             const btn = document.getElementById('masterButton');
             btn.style.display = 'inline-block';
             btn.innerText = "Ver Objetivo (Psíquico)";
-            btn.className = "btn-psychic";
+            btn.style.backgroundColor = "#3742fa";
             
             updateScoreboard();
+        }
+
+        function skipRound() {
+            newRound();
         }
 
         function handleMasterFlow() {
@@ -295,23 +351,21 @@
             const targetArea = document.getElementById('targetArea');
 
             if (gameState === 'START') {
-                // El psíquico quiere ver
                 cover.style.display = 'none';
                 btn.innerText = "Ocultar y Jugar";
-                btn.className = "btn-hide";
+                btn.style.backgroundColor = "#ffa502";
                 gameState = 'PSYCHIC_VIEW';
             } 
             else if (gameState === 'PSYCHIC_VIEW') {
-                // El psíquico ya dio la pista, el equipo va a jugar
                 targetArea.style.display = 'none';
                 needleCont.style.display = 'block';
                 document.getElementById('needle').style.transform = 'rotate(0deg)';
                 btn.innerText = "Revelar Resultado";
-                btn.className = "btn-reveal";
+                btn.style.backgroundColor = "#2ed573";
+                document.getElementById('skipButton').style.display = 'none';
                 gameState = 'TEAM_GUESS';
             }
             else if (gameState === 'TEAM_GUESS') {
-                // Ver puntuación
                 targetArea.style.display = 'block';
                 btn.style.display = 'none';
                 document.getElementById('nextRoundButton').style.display = 'inline-block';
@@ -321,7 +375,7 @@
                 let pts = diff <= 4.5 ? 5 : diff <= 13.5 ? 3 : diff <= 22.5 ? 1 : 0;
                 
                 teams[currentTeamIndex].score += pts;
-                document.getElementById('scoreMsg').innerText = pts > 0 ? `¡+${pts} PUNTOS!` : "¡0 puntos! Más suerte...";
+                document.getElementById('scoreMsg').innerText = pts > 0 ? `¡+${pts} PUNTOS!` : "0 puntos...";
                 if(pts === 5) confetti({ particleCount: 150, spread: 70 });
                 
                 gameState = 'REVEALED';
@@ -331,8 +385,8 @@
 
         function updateScoreboard() {
             document.getElementById('scoreboard').innerHTML = teams.map((t, i) => `
-                <div class="score-item ${i===currentTeamIndex?'active-team':''}" style="border-left: 5px solid ${t.color}">
-                    <span style="font-weight:bold">${t.name}</span>: ${t.score} pts
+                <div class="score-item ${i===currentTeamIndex?'active-team-card':''}" style="border-bottom: 4px solid ${t.color}">
+                    <span>${t.emoji}</span> <span>${t.name}</span>: ${t.score}
                 </div>
             `).join('');
         }
@@ -342,7 +396,6 @@
             newRound();
         }
 
-        // Lógica de arrastre de aguja
         let isDragging = false;
         const cont = document.getElementById('needleContainer');
         cont.onmousedown = () => { if(gameState === 'TEAM_GUESS') isDragging = true; };
