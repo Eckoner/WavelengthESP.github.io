@@ -4,24 +4,10 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Wavelength Pro</title>
+    <title>Wavelength - Galaxy Edition</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap" rel="stylesheet" />
     <style>
-        :root {
-            --bg-color: #f0f0f0;
-            --container-bg: #ffffff;
-            --text-color: #2f3542;
-            --accent-color: #1a1a4b;
-        }
-
-        body.dark-mode {
-            --bg-color: #0a0a1a;
-            --container-bg: #1a1a2e;
-            --text-color: #f8f8f2;
-            --accent-color: #48dbfb;
-        }
-
         body {
             font-family: "Roboto", sans-serif;
             display: flex;
@@ -29,86 +15,80 @@
             align-items: center;
             min-height: 100vh;
             margin: 0;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            transition: all 0.3s ease;
-        }
-
-        /* LOGO ESTILO IMAGEN (Azul noche con estrellas) */
-        .header-logo {
-            background-color: #050520;
-            background-image: 
-                radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 40px),
-                radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 30px),
-                radial-gradient(white, rgba(255,255,255,.1) 2px, transparent 40px);
-            background-size: 550px 550px, 350px 350px, 250px 250px;
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 25px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-
-        .header-logo h1 {
+            /* Fondo Espacial acorde a la imagen */
+            background: radial-gradient(circle at center, #1a1a4b 0%, #050520 100%);
+            background-attachment: fixed;
             color: white;
-            font-family: 'Orbitron', sans-serif;
-            font-size: 45px;
-            margin: 0;
-            letter-spacing: 8px;
-            text-transform: uppercase;
+            overflow-x: hidden;
         }
 
-        .theme-switch {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            cursor: pointer;
-            padding: 10px 15px;
-            background: var(--container-bg);
-            border-radius: 20px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            z-index: 100;
+        /* Estrellas decorativas de fondo */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                radial-gradient(white, rgba(255,255,255,.2) 1px, transparent 20px),
+                radial-gradient(white, rgba(255,255,255,.1) 1px, transparent 30px);
+            background-size: 200px 200px, 350px 350px;
+            z-index: -1;
         }
 
-        .game-container {
+        /* Contenedores más grandes */
+        .game-container, .team-setup {
             display: none;
             text-align: center;
-            background-color: var(--container-bg);
-            padding: 2.5rem;
-            border-radius: 20px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
-            width: 650px;
+            background-color: rgba(26, 26, 46, 0.95);
+            padding: 3rem;
+            border-radius: 30px;
+            box-shadow: 0 0 50px rgba(0, 0, 0, 0.8), 0 0 20px rgba(72, 219, 251, 0.2);
+            width: 900px; /* Ancho ampliado */
+            min-height: 750px; /* Alto ampliado */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
         }
 
+        .team-setup { display: block; } /* Mostrar inicio */
+
+        .main-logo {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            display: block;
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.3));
+        }
+
+        /* Tablero más grande */
         .board {
-            width: 400px;
-            height: 200px;
-            background-color: #222;
-            border-radius: 200px 200px 0 0;
+            width: 600px;
+            height: 300px;
+            background-color: #111;
+            border-radius: 300px 300px 0 0;
             position: relative;
             margin: 0 auto;
             overflow: hidden;
-            border-bottom: 5px solid #111;
+            border: 8px solid #222;
         }
 
         .board-cover {
             position: absolute;
             width: 100%;
             height: 100%;
-            background-color: #1a1a2e;
+            background-color: #050520;
             z-index: 20;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: white;
-            font-size: 1rem;
-            letter-spacing: 2px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: #48dbfb;
+            text-shadow: 0 0 10px #48dbfb;
         }
 
         .target-area {
-            width: 400px;
-            height: 200px;
-            border-radius: 200px 200px 0 0;
+            width: 600px;
+            height: 300px;
+            border-radius: 300px 300px 0 0;
             position: absolute;
         }
 
@@ -116,8 +96,8 @@
             position: absolute;
             bottom: 0;
             left: 50%;
-            width: 4px;
-            height: 190px;
+            width: 6px;
+            height: 280px;
             transform: translateX(-50%);
             cursor: pointer;
             z-index: 15;
@@ -129,113 +109,98 @@
             height: 100%;
             background-color: #ff4757;
             transform-origin: bottom center;
-            box-shadow: 0 0 8px rgba(255, 71, 87, 0.6);
+            box-shadow: 0 0 15px #ff4757;
+            border-radius: 10px;
         }
 
         .clues-container {
             display: flex;
             align-items: center;
-            justify-content: center;
-            margin: 30px 0;
-            font-size: 1.4rem;
+            justify-content: space-between;
+            margin: 40px 0;
+            font-size: 1.8rem;
             font-weight: bold;
-            min-height: 80px;
+            color: #fff;
         }
 
         .bidirectional-arrow {
-            width: 60px;
-            height: 2px;
-            background-color: #ff4757;
-            margin: 0 20px;
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(90deg, #ff4757, #48dbfb);
             position: relative;
         }
 
-        .controls {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-
         .controls button {
-            padding: 12px 25px;
+            padding: 15px 30px;
             border: none;
-            border-radius: 10px;
+            border-radius: 12px;
             color: white;
             font-weight: bold;
+            font-size: 1.1rem;
             cursor: pointer;
-            transition: transform 0.1s;
+            transition: all 0.2s;
+            margin: 5px;
         }
 
-        .btn-master { font-size: 1.1rem; min-width: 200px; }
-        .btn-skip { background-color: #747d8c; }
-        .btn-next { background-color: #3742fa; }
+        .btn-master { background-color: #3742fa; min-width: 250px; }
+        .btn-skip { background-color: #57606f; }
+        .btn-next { background-color: #2ed573; box-shadow: 0 0 15px rgba(46, 213, 115, 0.4); }
 
-        .team-setup {
-            background-color: var(--container-bg);
-            padding: 2rem;
-            border-radius: 20px;
-            width: 550px;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
+        /* Formulario de equipos */
         .team-row {
             display: grid;
-            grid-template-columns: 1fr 100px 80px;
-            gap: 10px;
-            margin-bottom: 12px;
-            align-items: center;
+            grid-template-columns: 1fr 120px 120px;
+            gap: 15px;
+            margin-bottom: 15px;
+            background: rgba(255,255,255,0.05);
+            padding: 10px;
+            border-radius: 15px;
         }
 
         .team-row input, .team-row select {
-            padding: 10px;
+            padding: 12px;
             border-radius: 8px;
-            border: 1px solid #ddd;
+            border: 1px solid #48dbfb;
+            background: #050520;
+            color: white;
         }
 
         .score-item {
-            padding: 10px 20px;
-            border-radius: 12px;
-            background: rgba(0,0,0,0.05);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-weight: bold;
+            padding: 15px;
+            border-radius: 15px;
+            background: rgba(255,255,255,0.1);
+            font-size: 1.2rem;
+            min-width: 180px;
         }
 
         .active-team-card {
-            border: 3px solid #ff4757;
-            transform: scale(1.1);
-            background: rgba(255, 71, 87, 0.1);
+            border: 2px solid #48dbfb;
+            box-shadow: 0 0 20px rgba(72, 219, 251, 0.3);
+            background: rgba(72, 219, 251, 0.1);
         }
     </style>
 </head>
 
 <body>
-    <div class="theme-switch" onclick="toggleTheme()">🌓 Modo</div>
 
     <div id="teamSetup" class="team-setup">
-        <div class="header-logo">
-            <h1>Wavelength</h1>
-        </div>
+        <img src="https://i.ibb.co/XfXkM5z/WAVELENTGH-LOGO.png" alt="Wavelength Logo" class="main-logo">
         
-        <p>Número de Equipos:</p>
-        <input type="number" id="teamCount" min="1" max="10" value="2" style="width: 60px; margin-bottom: 20px; font-size: 1.2rem;">
+        <div style="margin-bottom: 30px;">
+            <label style="font-size: 1.2rem;">¿Cuántos equipos van a jugar?</label><br>
+            <input type="number" id="teamCount" min="1" max="10" value="2" style="width: 80px; font-size: 1.5rem; margin-top: 10px; text-align: center;">
+        </div>
         
         <div id="teamInputs"></div>
         
-        <button onclick="startGame()" style="background: #2ed573; color: white; padding: 15px 40px; border: none; border-radius: 12px; cursor: pointer; font-weight: bold; margin-top: 20px; width: 100%;">EMPEZAR PARTIDA</button>
+        <button onclick="startGame()" style="background: #2ed573; color: white; padding: 20px 50px; border: none; border-radius: 15px; cursor: pointer; font-weight: bold; font-size: 1.4rem; margin-top: 20px; width: 100%;">¡DESPEGAR!</button>
     </div>
 
     <div id="gameContainer" class="game-container">
-        <div class="header-logo" style="padding: 10px; border-radius: 10px;">
-            <h1 style="font-size: 25px;">Wavelength</h1>
-        </div>
+        <img src="https://i.ibb.co/XfXkM5z/WAVELENTGH-LOGO.png" alt="Wavelength Logo" class="main-logo" style="max-width: 300px;">
 
         <div class="board">
-            <div id="boardCover" class="board-cover">EL PSÍQUICO ESTÁ MIRANDO...</div>
+            <div id="boardCover" class="board-cover">EL PSÍQUICO PREPARA SU MENTE</div>
             <div id="targetArea" class="target-area"></div>
             <div id="needleContainer" class="needle-container">
                 <div id="needle" class="needle"></div>
@@ -243,20 +208,20 @@
         </div>
         
         <div class="clues-container">
-            <div id="leftClue"></div>
+            <div id="leftClue" style="flex: 1; text-align: right;">IZQUIERDA</div>
             <div class="bidirectional-arrow"></div>
-            <div id="rightClue"></div>
+            <div id="rightClue" style="flex: 1; text-align: left;">DERECHA</div>
         </div>
 
         <div class="controls">
-            <button id="masterButton" class="btn-master" onclick="handleMasterFlow()" style="background-color: #3742fa;">Ver Objetivo (Psíquico)</button>
-            <button id="skipButton" class="btn-skip" onclick="skipRound()">Saltar Ronda ⏭️</button>
+            <button id="masterButton" class="btn-master" onclick="handleMasterFlow()">Ver Objetivo (Psíquico)</button>
+            <button id="skipButton" class="btn-skip" onclick="skipRound()">Cambiar Tema ⏭️</button>
             <button id="nextRoundButton" class="btn-next" onclick="nextRound()" style="display:none;">Siguiente Ronda</button>
-            <button onclick="location.reload()" style="background: #ff4757;">Reiniciar</button>
+            <button onclick="location.reload()" style="background: #ff4757; opacity: 0.7;">Reiniciar Todo</button>
         </div>
 
-        <div id="scoreMsg" style="margin: 20px 0; font-size: 1.5rem; font-weight: bold;"></div>
-        <div id="scoreboard" style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 20px;"></div>
+        <div id="scoreMsg" style="margin: 30px 0; font-size: 2rem; color: #48dbfb;"></div>
+        <div id="scoreboard" style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;"></div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
@@ -265,11 +230,20 @@
             ["Mala compañía", "Buena compañía"], ["Película terrible", "Gran película"], ["Frío", "Caliente"], ["Inflexible", "Flexible"],
             ["Deseo", "Necesidad"], ["Cosa rara", "Cosa normal"], ["Duro", "Blando"], ["Feo", "Precioso"], ["Inútil", "Útil"],
             ["Hobby aburrido", "Hobby emocionante"], ["Peor olor", "Mejor olor"], ["Hábito molesto", "Rasgo adorable"],
-            ["Tradicional", "Moderno"], ["Barato", "Caro"], ["Salado", "Dulce"], ["Baja calidad", "Alta calidad"]
+            ["Tradicional", "Moderno"], ["Barato", "Caro"], ["Salado", "Dulce"], ["Baja calidad", "Alta calidad"],
+            ["Científico", "Místico"], ["Peor superpoder", "Mejor superpoder"], ["Comida sana", "Comida basura"],
+            ["Para niños", "Para adultos"], ["Aburrido", "Divertido"], ["Lento", "Rápido"], ["Débil", "Fuerte"]
         ];
 
-        const emojis = ["🚀", "🦁", "🍕", "💎", "🎮", "🎸", "🥑", "👻", "🦄", "🔥"];
-        const colors = ["#3742fa", "#2ed573", "#ff4757", "#ffa502", "#e056fd", "#1dd1a1", "#5f27cd", "#ff9ff3", "#48dbfb", "#00d2d3"];
+        // 30 Emojis variados
+        const emojis = ["🚀", "🦁", "🍕", "💎", "🎮", "🎸", "🥑", "👻", "🦄", "🔥", "🌈", "🎈", "🍀", "🍩", "🌮", "🦊", "👑", "👽", "👾", "🤖", "⚡", "🏀", "🍿", "🧁", "🐼", "🌍", "☀️", "🌙", "🧿", "🧠"];
+        
+        // Colores con nombres reales
+        const colorPalette = [
+            {n: "Azul", v: "#3742fa"}, {n: "Verde", v: "#2ed573"}, {n: "Rojo", v: "#ff4757"}, 
+            {n: "Naranja", v: "#ffa502"}, {n: "Rosa", v: "#ff9ff3"}, {n: "Cian", v: "#48dbfb"},
+            {n: "Morado", v: "#5f27cd"}, {n: "Amarillo", v: "#feca57"}, {n: "Turquesa", v: "#1dd1a1"}, {n: "Blanco", v: "#ffffff"}
+        ];
 
         let teams = [];
         let currentTeamIndex = 0;
@@ -281,23 +255,23 @@
             const container = document.getElementById('teamInputs');
             container.innerHTML = '';
             for (let i = 0; i < count; i++) {
-                let emojiOptions = emojis.map(e => `<option>${e}</option>`).join('');
-                let colorOptions = colors.map((c, idx) => `<option value="${c}">Color ${idx+1}</option>`).join('');
+                let emojiOpts = emojis.map(e => `<option>${e}</option>`).join('');
+                let colorOpts = colorPalette.map(c => `<option value="${c.v}">${c.n}</option>`).join('');
                 
                 container.innerHTML += `
                     <div class="team-row">
-                        <input type="text" placeholder="Equipo ${i+1}" id="name${i}">
-                        <select id="emoji${i}">${emojiOptions}</select>
-                        <select id="color${i}">${colorOptions}</select>
+                        <input type="text" placeholder="Nombre Equipo ${i+1}" id="name${i}">
+                        <select id="emoji${i}">${emojiOpts}</select>
+                        <select id="color${i}">${colorOpts}</select>
                     </div>`;
-                // Asignar color por defecto diferente a cada uno
-                setTimeout(() => document.getElementById(`color${i}`).selectedIndex = i % 10, 0);
+                setTimeout(() => {
+                    document.getElementById(`color${i}`).selectedIndex = i % colorPalette.length;
+                    document.getElementById(`emoji${i}`).selectedIndex = i % emojis.length;
+                }, 0);
             }
         }
         document.getElementById('teamCount').oninput = setupTeams;
         setupTeams();
-
-        function toggleTheme() { document.body.classList.toggle('dark-mode'); }
 
         function startGame() {
             const count = document.getElementById('teamCount').value;
@@ -319,7 +293,8 @@
             targetAngle = Math.random() * 180 - 90;
             
             const area = document.getElementById('targetArea');
-            area.style.background = `conic-gradient(from -90deg at 50% 100%, #a4b0be 0deg ${targetAngle + 67.5}deg, #ff6b6b ${targetAngle + 67.5}deg ${targetAngle + 76.5}deg, #feca57 ${targetAngle + 76.5}deg ${targetAngle + 85.5}deg, #48dbfb ${targetAngle + 85.5}deg ${targetAngle + 94.5}deg, #feca57 ${targetAngle + 94.5}deg ${targetAngle + 103.5}deg, #ff6b6b ${targetAngle + 103.5}deg ${targetAngle + 112.5}deg, #a4b0be ${targetAngle + 112.5}deg 180deg)`;
+            // Proporción ajustada al nuevo ancho de 600px
+            area.style.background = `conic-gradient(from -90deg at 50% 100%, rgba(255,255,255,0.1) 0deg ${targetAngle + 67.5}deg, #ff6b6b ${targetAngle + 67.5}deg ${targetAngle + 76.5}deg, #feca57 ${targetAngle + 76.5}deg ${targetAngle + 85.5}deg, #48dbfb ${targetAngle + 85.5}deg ${targetAngle + 94.5}deg, #feca57 ${targetAngle + 94.5}deg ${targetAngle + 103.5}deg, #ff6b6b ${targetAngle + 103.5}deg ${targetAngle + 112.5}deg, rgba(255,255,255,0.1) ${targetAngle + 112.5}deg 180deg)`;
             
             const pair = clues[Math.floor(Math.random()*clues.length)];
             document.getElementById('leftClue').innerText = pair[0];
@@ -340,9 +315,7 @@
             updateScoreboard();
         }
 
-        function skipRound() {
-            newRound();
-        }
+        function skipRound() { newRound(); }
 
         function handleMasterFlow() {
             const btn = document.getElementById('masterButton');
@@ -352,7 +325,7 @@
 
             if (gameState === 'START') {
                 cover.style.display = 'none';
-                btn.innerText = "Ocultar y Jugar";
+                btn.innerText = "Ocultar y Pasar Turno";
                 btn.style.backgroundColor = "#ffa502";
                 gameState = 'PSYCHIC_VIEW';
             } 
@@ -375,8 +348,8 @@
                 let pts = diff <= 4.5 ? 5 : diff <= 13.5 ? 3 : diff <= 22.5 ? 1 : 0;
                 
                 teams[currentTeamIndex].score += pts;
-                document.getElementById('scoreMsg').innerText = pts > 0 ? `¡+${pts} PUNTOS!` : "0 puntos...";
-                if(pts === 5) confetti({ particleCount: 150, spread: 70 });
+                document.getElementById('scoreMsg').innerText = pts > 0 ? `¡+${pts} PUNTOS!` : "¡Fallaste!";
+                if(pts === 5) confetti({ particleCount: 200, spread: 80, origin: { y: 0.7 } });
                 
                 gameState = 'REVEALED';
                 updateScoreboard();
@@ -385,8 +358,8 @@
 
         function updateScoreboard() {
             document.getElementById('scoreboard').innerHTML = teams.map((t, i) => `
-                <div class="score-item ${i===currentTeamIndex?'active-team-card':''}" style="border-bottom: 4px solid ${t.color}">
-                    <span>${t.emoji}</span> <span>${t.name}</span>: ${t.score}
+                <div class="score-item ${i===currentTeamIndex?'active-team-card':''}" style="border-bottom: 5px solid ${t.color}">
+                    <span style="font-size: 1.5rem;">${t.emoji}</span> <span style="color:${t.color}">${t.name}</span>: ${t.score}
                 </div>
             `).join('');
         }
@@ -396,6 +369,7 @@
             newRound();
         }
 
+        // Lógica de aguja
         let isDragging = false;
         const cont = document.getElementById('needleContainer');
         cont.onmousedown = () => { if(gameState === 'TEAM_GUESS') isDragging = true; };
